@@ -3,12 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native start",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
     "react": "16.8.6",
+    "react-dom": "^16.8.6",
     "react-native": "0.60.0-rc.2"
   },
   "devDependencies": {
@@ -22,6 +28,17 @@
     "react-test-renderer": "16.8.6"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFilesAfterEnv": ["<rootDir>src/setup-tests.js"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|)"
+    ],
+    "moduleNameMapper": {
+      "\\.(png|gif|jpeg|jpg)$": "RelativeImageStub"
+    },
+    "collectCoverage": true
   }
 }
